@@ -203,11 +203,11 @@ int __random (struct random_data *buf, int32_t *result) {
 	return 0;
 }
 
-int srand(unsigned int seed) {
+int srandom(unsigned int seed) {
 	return __srandom(seed, &unsafe_state);
 }
 
-int rand() {
+int random() {
 	int result;
 	__random(&unsafe_state, &result);
 	return result;
