@@ -39,8 +39,8 @@
 
 #define	MAX_TYPES	5	/* Max number of types above.  */
 
-// libc random_data struct
-struct random_data {
+// libc Random_data struct
+struct Random_data {
 	int32_t *fptr;		/* Front pointer.  */
 	int32_t *rptr;		/* Rear pointer.  */
 	int32_t *state;		/* Array of state values.  */
@@ -51,16 +51,16 @@ struct random_data {
 };
 
 // elf hashes
-uint32_t dl_new_hash (const char *s);
-uint32_t _dl_elf_hash (const char *name);
+uint32_t Dl_new_hash (const char *s);
+uint32_t _Dl_elf_hash (const char *name);
 
 // linux libc random functions
-int __srandom(unsigned int seed, struct random_data *buf);
+int __Srandom(unsigned int seed, struct Random_data *buf);
 
-int __random (struct random_data *buf, int32_t *result);
+int __Random (struct Random_data *buf, int32_t *result);
 
-int srandom(unsigned int seed);
+int Srandom(unsigned int seed);
 
-int random();
+int Random();
 
 #endif //LINUX_LIBC_FUNCTIONS_H

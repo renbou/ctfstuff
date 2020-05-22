@@ -54,7 +54,7 @@ uint32_t _dl_elf_hash (const char *name) {
 
 #define	MAX_TYPES	5	/* Max number of types above.  */
 
-struct random_data {
+struct Random_data {
 	int32_t *fptr;		/* Front pointer.  */
 	int32_t *rptr;		/* Rear pointer.  */
 	int32_t *state;		/* Array of state values.  */
@@ -75,7 +75,7 @@ static int32_t randtbl[DEG_3 + 1] = {
 		-205601318,
 		};
 
-static random_data unsafe_state = {
+static Random_data unsafe_state = {
 /* FPTR and RPTR are two pointers into the state info, a front and a rear
    pointer.  These two pointers are always rand_sep places apart, as they
    cycle through the state information.  (Yes, this does mean we could get
@@ -108,12 +108,12 @@ static random_data unsafe_state = {
 		.end_ptr = &randtbl[sizeof (randtbl) / sizeof (randtbl[0])]
 };
 
-int __srandom(unsigned int seed, struct random_data *buf);
-int __random (struct random_data *buf, int32_t *result);
-int srand(unsigned int seed);
-int rand();
+int __Srandom(unsigned int seed, struct Random_data *buf);
+int __Random (struct Random_data *buf, int32_t *result);
+int Srand(unsigned int seed);
+int Rand();
 
-int __srandom(unsigned int seed, struct random_data *buf) {
+int __Srandom(unsigned int seed, struct Random_data *buf) {
 	int type;
 	int32_t *state;
 	long int i;
@@ -154,7 +154,7 @@ int __srandom(unsigned int seed, struct random_data *buf) {
 	kc *= 10;
 	while (--kc >= 0) {
 		int32_t discard;
-		(void) __random (buf, &discard);
+		(void) __Random (buf, &discard);
 	}
 
 	done:
@@ -164,7 +164,7 @@ int __srandom(unsigned int seed, struct random_data *buf) {
 	return -1;
 }
 
-int __random (struct random_data *buf, int32_t *result) {
+int __Random (struct Random_data *buf, int32_t *result) {
 	int32_t *state;
 
 	if (buf == nullptr || result == nullptr)
@@ -203,13 +203,13 @@ int __random (struct random_data *buf, int32_t *result) {
 	return 0;
 }
 
-int srandom(unsigned int seed) {
-	return __srandom(seed, &unsafe_state);
+int Srandom(unsigned int seed) {
+	return __Srandom(seed, &unsafe_state);
 }
 
-int random() {
+int Random() {
 	int result;
-	__random(&unsafe_state, &result);
+	__Random(&unsafe_state, &result);
 	return result;
 }
 
